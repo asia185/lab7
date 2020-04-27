@@ -22,7 +22,7 @@
             <h1>Pan Prezes</h1>
             <p>
                 <b>
-                    <span th:text='|${boss.firstName} ${boss.lastName}|'>Imię</span>
+                    <span th:text='|${boss.firstName} ${boss.lastName}|'></span>
                 </b>
             </p>
             <img th:src="${boss.photoUrl}" class="empPhoto" 
@@ -51,14 +51,11 @@
                     <td th:if="${employee.dateOfTermination != null}" th:text="${#dates.format(employee.dateOfTermination, 'dd.MM.yyyy')}"></td>
                     <td th:if="${employee.dateOfTermination == null}">Wciąż pracuje</td>
                     <td>
-                        <p th:each="skill, is : ${employee.skills}">
-                            <span th:text="|${skill.name}  (${skill.level})|"></span>
-                            <span th:if="${!is.last}">,</span>
-                        </p>
+                        <p th:each="skill, iterStat : ${employee.skills}" th:text="${!iterStat.last}?|${skill.name}  (${skill.level}),| : |${skill.name}  (${skill.level})|"></p>
                     </td>
                     <td>
-                        <p th:each="comment : ${employee.comments}">
-                            <span th:text="${comment}"></span>
+                        <p th:each="comment : ${employee.comments}"
+                            th:text="${comment}">
                         </p>
                     </td>
                     <td>
